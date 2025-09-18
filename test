@@ -1,2 +1,10 @@
 server:
   port: 8081
+spring:
+  ai:
+    openai:
+      api-key: sk-bfc15cdb05e14e549b38d9e3ffc35609
+      base-url: https://api.deepseek.com
+      chat:
+        options:
+          model: deepseek-chat
