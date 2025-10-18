@@ -8,7 +8,7 @@ services:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: 123456
     volumes:
-      - postgres:/var/lib/postgresql
+      - postgres-data:/var/lib/postgresql
     ports:
       - "5432:5432"
     networks:
@@ -35,7 +35,7 @@ services:
       RABBITMQ_DEFAULT_USER: root
       RABBITMQ_DEFAULT_PASS: 123456
     volumes:
-      - rabbitmq:/var/lib/rabbitmq
+      - rabbitmq-data:/var/lib/rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -44,31 +44,31 @@ services:
         ipv4_address: 172.20.0.12
     restart: no
 
-  elasticsearch:
-    container_name: elasticsearch-container
-    image: elasticsearch:8.18.1
-    mem_limit: 1g
-    environment:
-      - discovery.type=single-node
-      - ES_JAVA_OPTS=-Xms512m -Xmx512m
-      - ELASTIC_PASSWORD=123456
-      - xpack.security.enabled=true
-      - xpack.security.http.ssl.enabled=false
-    volumes:
-      - elasticsearch:/usr/share/elasticsearch/data
-    ports:
-      - "9200:9200"
-      - "9300:9300"
-    networks:
-      application-network:
-        ipv4_address: 172.20.0.13
-    restart: no
+#  elasticsearch:
+#    container_name: elasticsearch-container
+#    image: elasticsearch:8.18.1
+#    mem_limit: 1g
+#    environment:
+#      - discovery.type=single-node
+#      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+#      - ELASTIC_PASSWORD=123456
+#      - xpack.security.enabled=true
+#      - xpack.security.http.ssl.enabled=false
+#    volumes:
+#      - elasticsearch:/usr/share/elasticsearch/data
+#    ports:
+#      - "9200:9200"
+#      - "9300:9300"
+#    networks:
+#      application-network:
+#        ipv4_address: 172.20.0.13
+#    restart: no
 
 volumes:
-  postgres:
-    name: postgres_volume
-  rabbitmq:
-    name: rabbitmq_volume
+  postgres-data:
+    name: postgres-data
+  rabbitmq-data:
+    name: rabbitmq-data
 
 networks:
   application-network:
